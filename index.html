@@ -2,17 +2,24 @@
 <html>
 <head>
 	<title>File Upload Example in AngularJS</title>
-	<script src="js/angular.min.js"></script>
+	<script src="libjs/angular.min.js"></script>
 </head>
 <script>
 	var myApp = angular.module('fupApp', []);
 	myApp.controller('fupController', function ($scope) {
 
         // GET THE FILE INFORMATION.
+        $scope.imagel=function(){
+        	alert("hello");
+        	$scope.image1="http://gopartiesstatic.s3.amazonaws.com/images/user/profile/thumb/56afb46408b131454355556.jpg";	
+        }
         $scope.getFileDetails = function (e) {
 
         	$scope.files = [];
-        	$scope.image1="http://gopartiesstatic.s3.amazonaws.com/images/user/profile/thumb/56afb46408b131454355556.jpg";
+        	angular.element(document).ready(function () {
+        		
+        	});
+        	$scope.$apply();
         	$scope.image2="";
         	$scope.image3="";
         	$scope.$apply(function () {
@@ -66,21 +73,34 @@
         	alert("Files uploaded successfully.");
         }
     });
+	
 </script>
-<body ng-app="fupApp" ng-controller="fupController">
-	<div >
-		<input type="file" id="file" name="file" multiple
-		onchange="angular.element(this).scope().getFileDetails(this)" />
-		<input type="button" ng-click="uploadFiles()" value="Upload" />
-		<!--ADD A PROGRESS BAR ELEMENT.-->
-		<p><progress id="pro" value="0"></progress></p>
+<body >
+	<div ng-app="fupApp" ng-controller="fupController">
+		<div >
+			<input type="file" id="file" name="file" multiple
+			onchange="angular.element(this).scope().getFileDetails(this)" />
+			<input type="button" ng-click="uploadFiles()" value="Upload" />
+			<!--ADD A PROGRESS BAR ELEMENT.-->
+			<p><progress id="pro" value="0"></progress></p>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<div>
+			<img ng-src="{{image1}}">
+			<img ng-src="{{image2}}" alt="image2">
+			<img ng-src="{{image3}}" alt="image3">
+			<br/>
+			<label ng-bind="image1"></label>
+			<input type="button" value="click me" ng-click="imagel()">
+		</div>
 	</div>
-	<br/>
-	<br/>
-	<br/>
-	<div>
-		<img ng-src={{image1}} alt="image1"/>
-		<img ng-src="{{image2}}" alt="image2"/>
-		<img ng-src="{{image3}}" alt="image3"/>
+
+
+	<div ng-app>
+		<img ng-src="{{img_url}}">
+		<button ng-click="img_url = 'https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg'">Click</button>
 	</div>
+
 </body>
