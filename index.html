@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>File Upload Example in AngularJS</title>
+	<script src="js/angular.min.js"></script>
+</head>
+<script>
+	var myApp = angular.module('fupApp', []);
+	myApp.controller('fupController', function ($scope) {
+
+        // GET THE FILE INFORMATION.
+        $scope.getFileDetails = function (e) {
+
+        	$scope.files = [];
+        	$scope.image1="http://gopartiesstatic.s3.amazonaws.com/images/user/profile/thumb/56afb46408b131454355556.jpg";
+        	$scope.image2="";
+        	$scope.image3="";
+        	$scope.$apply(function () {
+
+                // STORE THE FILE OBJECT IN AN ARRAY.
+                for (var i = 0; i < e.files.length; i++) {
+                	$scope.files.push(e.files[i])
+                }
+                $scope.image1=$scope.files[0];
+                $scope.image2=$scope.files[1];
+                $scope.image3=$scope.files[2];
+                console.log("file=",$scope.image1);
+                console.log("file=",$scope.image2);
+            });
+        };
+
+
+
+        // NOW UPLOAD THE FILES.
+        $scope.uploadFiles = function () {
+
+            //FILL FormData WITH FILE DETAILS.
+            var data = new FormData();
+
+            for (var i in $scope.files) {
+            	data.append("uploadedFile", $scope.files[i]);
+            	
+            }
+
+            debugger;
+            // ADD LISTENERS.
+            var objXhr = new XMLHttpRequest();
+            objXhr.addEventListener("progress", updateProgress, false);
+            objXhr.addEventListener("load", transferComplete, false);
+
+            // SEND FILE DETAILS TO THE API.
+            objXhr.open("POST", "/api/fileupload/");
+            //objXhr.send(data);
+        }
+
+        // UPDATE PROGRESS BAR.
+        function updateProgress(e) {
+        	if (e.lengthComputable) {
+        		document.getElementById('pro').setAttribute('value', e.loaded);
+        		document.getElementById('pro').setAttribute('max', e.total);
+        	}
+        }
+
+        // CONFIRMATION.
+        function transferComplete(e) {
+        	alert("Files uploaded successfully.");
+        }
+    });
+</script>
+<body ng-app="fupApp" ng-controller="fupController">
+	<div >
+		<input type="file" id="file" name="file" multiple
+		onchange="angular.element(this).scope().getFileDetails(this)" />
+		<input type="button" ng-click="uploadFiles()" value="Upload" />
+		<!--ADD A PROGRESS BAR ELEMENT.-->
+		<p><progress id="pro" value="0"></progress></p>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<div>
+		<img ng-src={{image1}} alt="image1"/>
+		<img ng-src="{{image2}}" alt="image2"/>
+		<img ng-src="{{image3}}" alt="image3"/>
+	</div>
+</body>
