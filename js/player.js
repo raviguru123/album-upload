@@ -49,6 +49,7 @@ app.controller('HomeCtrl', ["$sce","$scope", "$window", "sharedProperties","getM
 
 			});
 		}
+		$scope.audioSource="https://gopartiesnew.s3-ap-southeast-1.amazonaws.com/3c66400c-bcd3-4663-bba7-8dc8bec08e5d.mp3";
 		$scope.init();
 	}
 	]);
@@ -92,6 +93,8 @@ app.directive("mediaDirectory",function(){
 		link:function($scope,element,attr,controller,transclude){
 			var category=$scope.mediaObj.worktype;
 			if(category=="audio"){
+				$scope.audioLink=$scope.mediaObj.fileurl;
+				console.log("audio player link=",$scope.audioLink);
 				$scope.myTemplate="directory/mp3.html";
 			}
 			else if(category=="video"){
@@ -105,3 +108,22 @@ app.directive("mediaDirectory",function(){
 		template:'<div ng-include="myTemplate"></div>'
 	}
 });
+
+
+app.filter("trustUrl", ['$sce', function ($sce) {
+	return function (recordingUrl) {
+		return $sce.trustAsResourceUrl(recordingUrl);
+	};
+}]);
+app.directive("audioDirectory",function(){
+	return{
+		restrict:'EA',
+		replace:true,
+		scope:true,
+		link:function($scope,element,attr,controller,transclude){
+			console.log("$scope.audioSource",$scope.audioSource);
+			elemend.bind()
+		}
+	}
+});
+

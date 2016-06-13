@@ -55,10 +55,11 @@
 	</style>
 	<style type="text/css">
 		.dir{
-			width:100px;
+			width:300px;
 			height:100px;
 			display: inline-block;
 			overflow: true;
+			float: left;
 			padding:20px;
 			margin:20px;
 		}
@@ -74,7 +75,7 @@
 		.container{
 			overflow-y:scroll; 
 			position:relative;
-			height: 80%;
+			height: 100%;
 			margin-left:50px;
 		}
 	</style>
@@ -82,35 +83,18 @@
 <body style="margin-top: 40px;" ng-app="player.module">
 	<div ng-controller="HomeCtrl" class="container">
 		
-		<media-directory  media-obj="obj" ng-repeat="obj in mediaObj"></media-directory>
-		
-	</div>
-	<br/>
-	<br/>
-	<div ng-controller="HomeCtrl as controller" class="videogular-container" ng-model="sharedProperty">
-		sharedProperty.data = {{sharedProperty.data}}
-		<button ng-click="controller.changeSource()"  type="button" class="btn btn-default">Change Audio</button>
-		<videogular vg-player-ready="controller.onPlayerReady($API)" vg-theme="controller.config.theme.url" class="videogular-container audio">
-			<vg-media vg-src="controller.config.sources"></vg-media>
-
-			<vg-controls>
-				<vg-play-pause-button></vg-play-pause-button>
-				<vg-time-display>{{currentTime | date:'mm:ss' }}</vg-time-display>
-				<vg-scrub-bar>
-					<vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-				</vg-scrub-bar>
-				<vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
-				<vg-volume>
-					<vg-mute-button></vg-mute-button>
-				</vg-volume>
-			</vg-controls>
-		</videogular>
-	</div>
+				<media-directory  media-obj="obj" ng-repeat="obj in mediaObj"></media-directory>
 
 
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.min.js"></script>
-	<script src="http://static.videogular.com/scripts/videogular/latest/videogular.js"></script>
-	<script src="http://static.videogular.com/scripts/controls/latest/vg-controls.js"></script>
-	<script type="text/javascript" src="js/player.js"></script>
-</body>
+				<br/>
+				<br/>
+
+			</div>
+
+
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.min.js"></script>
+			<script src="http://static.videogular.com/scripts/videogular/latest/videogular.js"></script>
+			<script src="http://static.videogular.com/scripts/controls/latest/vg-controls.js"></script>
+			<script type="text/javascript" src="js/player.js"></script>
+		</body>
