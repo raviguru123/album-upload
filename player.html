@@ -1,0 +1,116 @@
+<head>
+	<style type="text/css">
+		html, body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+
+		.videogular-container {
+			width: 100%;
+			height: 320px;
+			margin: auto;
+			overflow: hidden;
+		}
+
+		.videogular-container.audio {
+			height: 50px;
+		}
+
+		@media (min-width: 1200px) {
+			.videogular-container {
+				width: 1170px;
+				height: 658.125px;
+			}
+
+			.videogular-container.audio {
+				width: 1170px;
+				height: 50px;
+			}
+		}
+
+		@media (min-width: 992px) and (max-width: 1199px) {
+			.videogular-container {
+				width: 940px;
+				height: 528.75px;
+			}
+
+			.videogular-container.audio {
+				width: 940px;
+				height: 50px;
+			}
+		}
+
+		@media (min-width: 768px) and (max-width: 991px) {
+			.videogular-container {
+				width: 728px;
+				height: 409.5px;
+			}
+
+			.videogular-container.audio {
+				width: 728px;
+				height: 50px;
+			}
+		}
+	</style>
+	<style type="text/css">
+		.dir{
+			width:100px;
+			height:100px;
+			display: inline-block;
+			overflow: true;
+			padding:20px;
+			margin:20px;
+		}
+		.image{
+			background-color:green;
+		}
+		.mp4{
+			background-color: blue;
+		}
+		.mp3{
+			background-color: gray;
+		}
+		.container{
+			overflow-y:scroll; 
+			position:relative;
+			height: 80%;
+			margin-left:50px;
+		}
+	</style>
+</head>
+<body style="margin-top: 40px;" ng-app="player.module">
+	<div ng-controller="HomeCtrl" class="container">
+		
+		<media-directory  media-obj="obj" ng-repeat="obj in mediaObj"></media-directory>
+		
+	</div>
+	<br/>
+	<br/>
+	<div ng-controller="HomeCtrl as controller" class="videogular-container" ng-model="sharedProperty">
+		sharedProperty.data = {{sharedProperty.data}}
+		<button ng-click="controller.changeSource()"  type="button" class="btn btn-default">Change Audio</button>
+		<videogular vg-player-ready="controller.onPlayerReady($API)" vg-theme="controller.config.theme.url" class="videogular-container audio">
+			<vg-media vg-src="controller.config.sources"></vg-media>
+
+			<vg-controls>
+				<vg-play-pause-button></vg-play-pause-button>
+				<vg-time-display>{{currentTime | date:'mm:ss' }}</vg-time-display>
+				<vg-scrub-bar>
+					<vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+				</vg-scrub-bar>
+				<vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+				<vg-volume>
+					<vg-mute-button></vg-mute-button>
+				</vg-volume>
+			</vg-controls>
+		</videogular>
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.min.js"></script>
+	<script src="http://static.videogular.com/scripts/videogular/latest/videogular.js"></script>
+	<script src="http://static.videogular.com/scripts/controls/latest/vg-controls.js"></script>
+	<script type="text/javascript" src="js/player.js"></script>
+</body>
