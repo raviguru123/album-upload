@@ -1,4 +1,9 @@
-<div class="dir mp3">
+<div class="dir mp3" style="background-image:url({{thumburl}})">
 	<h1>mp4</h1>
 	<input type="button" ng-click="playMp4(mp4Url)" value="play">
-</div>
+	<video style="display:block" controls>
+		<source src="{{serverLink | trustUrl}}" type="video/mp4">
+
+		</video>
+		
+	</div>

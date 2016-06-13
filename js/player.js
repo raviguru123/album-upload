@@ -92,9 +92,11 @@ app.directive("mediaDirectory",function(){
 		},
 		link:function($scope,element,attr,controller,transclude){
 			var category=$scope.mediaObj.worktype;
+			$scope.serverLink=$scope.mediaObj.fileurl;
+			$scope.thumburl=$scope.mediaObj.thumburl;
+			console.log("$scope.serverLink",$scope.serverLink);
 			if(category=="audio"){
-				$scope.audioLink=$scope.mediaObj.fileurl;
-				console.log("audio player link=",$scope.audioLink);
+				
 				$scope.myTemplate="directory/mp3.html";
 			}
 			else if(category=="video"){
