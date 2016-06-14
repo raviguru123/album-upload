@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="libjs/angular.min.js"></script>
+	<script type="text/javascript" src="js/audioPlayerChangeSource.js"></script>
+	<style type="text/css">
+		.container{
+			margin:100px;
+		}
+	</style>
+</head>
+<body ng-app="audio.module" ng-controller="audioCtrl">
+	<h1>Audio player control</h1>
+	<div class="container">
+		<audio  id="player" src="{{audioSource | trustUrl}}" controls></audio>
+			<input type="button" value="prev" ng-click="prev()"/>
+			<input type="button" value="next" ng-click="next()"/>
+		</div>
+		<label>Audio Index={{audioIndex}}</label>
+	</body>
+	</html>
