@@ -3,7 +3,11 @@
 <head>
 	<title>angular file upload</title>
 	<script type="text/javascript" src="libjs/angular.min.js"></script>
+	<script type="text/javascript" src="libjs/ng-file-upload-shim.js"></script>
+		<script type="text/javascript" src="libjs/ng-file-upload.js"></script>
 	<script type="text/javascript" src="js/upload.js"></script>
+
+	
 	<style type="text/css">
 		.container{
 			background-color:gray;
@@ -11,6 +15,7 @@
 			height: 100%;
 		}
 	</style>
+
 </head>
 <body style="margin:100px;" ng-app="upload.module" ng-controller="uploadCtrl">
 	<div class="container">
@@ -19,5 +24,7 @@
 		<input type="button" value="upload" ng-click="uploadFile()"/>
 	</div>
 	<label>"Progress of file="{{progressBar}}</label>
+
+</div>
 </body>
 </html>

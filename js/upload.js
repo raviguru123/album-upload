@@ -1,4 +1,4 @@
-var app=angular.module('upload.module', []);
+var app=angular.module('upload.module', ['ngFileUpload']);
 
 app.controller('uploadCtrl', ['$scope','uploadFactory',
 	function($scope,uploadFactory){
@@ -40,21 +40,34 @@ app.directive("uploadVideo",function($parse){
 });
 
 
-app.factory("uploadFactory",function($http,$q){
+app.factory("uploadFactory",function($http,$q,Upload, $timeout){
 	var obj={};
 	obj.upload=function(file){
 		var defer=$q.defer();
 		var data={};
 		data.resource=file;
-		var url="http://goparties.com/api/api.php/uploadresource?access_token=133688745fb3253a0b4c3cbb3f67d444cf4b418a";
-		$http.post(url,data).then(function(response){
-			console.log("response come from file uploading=",response);
-			defer.resolve(response);
-		},function(reason){
-			console.log("error occur during file upload=",reason);
-			defer.reject(reason);
-		})
-		return defer.promise
-		;	}
-		return obj;
-	});
+		var fd = new FormData();
+    //Take the first selected file
+    fd.append("resource", file);
+    var url="http://goparties.com/api/api.php/uploadresource?access_token=133688745fb3253a0b4c3cbb3f67d444cf4b418a";
+
+
+    Upload.upload({
+    	url: url,
+    	data: fd,
+    }).then(function (response) {
+    	console.log("response come from",response.data);
+    	defer.resolve(response);
+    }, function (response) {
+    	if (response.status > 0) {
+    		console.log("$scope.errorMsg =", response.status + ': ' + response.data);
+    	}
+    }, function (evt) {
+
+    	console.log(Math.min(100, parseInt(100.0 * evt.loaded / evt.total)))      
+    });
+
+    return defer.promise;
+}
+return obj;
+});
