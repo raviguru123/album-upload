@@ -20,15 +20,16 @@
 <body style="margin:100px;">
 	
 	<div ng-app="fileUpload" ng-controller="MyCtrl">Username
-		<input type="file" file-upload/>
+		<input type="file" file-upload multiple/>
 		<input type="button" value="Upload" ng-click="upload(myFile)"/>
 		<br/>
 		<br/>
 		<br/>
-		<div style="width:300px;height:20px;background-color:yellow">
-			<div ng-style="{width:progress+'%'}" style="width:0%;height: 100%;background-color:red"></div>
-		</div>
-		<label>Progress of file={{progress}}</label>
+		<progress-widget percent={{obj.progress}} ng-repeat="obj in myFile"></progress-widget>
+		<br/>
+		<p ng-repeat="file in myFile">hello={{file.progress}}</p>
+	
+	
 	</div>
 
 	

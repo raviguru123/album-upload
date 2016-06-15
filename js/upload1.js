@@ -6,39 +6,33 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Uplo
     $scope.assign=function(files){
         $scope.myFile=files;
     } 
-$scope.progress=0;
-
+    $scope.url='http://goparties.com/api/api.php/uploadresource?access_token=133688745fb3253a0b4c3cbb3f67d444cf4b418a';
+    $scope.progress=0;
+    $scope.filesProgress=[];
     $scope.upload = function (files) {
         debugger;
+        var array=[];
         if (files && files.length) {
             for (var i = 0; i < files.length; i++) {
-              var file = files[i];
-              var data={};
-              data.resource=file;
-              if (!file.$error) {
-                Upload.upload({
-                    url: 'http://goparties.com/api/api.php/uploadresource?access_token=133688745fb3253a0b4c3cbb3f67d444cf4b418a',
-                    data: data
-                }).then(function (resp) {
-                    // $timeout(function() {
-                        console.log("respnse come from uploading=",resp);
-                    //     $scope.log = 'file: ' +
-                    //     resp.config.data.file.name +
-                    //     ', Response: ' + JSON.stringify(resp.data) +
-                    //     '\n' + $scope.log;
-                   // });
-               }, null, function (evt) {
-                var progressPercentage = parseInt(100.0 *
-                    evt.loaded / evt.total);
-                $scope.progress=progressPercentage;
-                    // $scope.log = 'progress: ' + progressPercentage + 
-                    //     '% ' + evt.config.data.file.name + '\n' + 
-                    //   $scope.log;
-                });
-            }
-        }
-    }
+             (function(file) {
+                var data={};
+                data.resource=file;
+                $scope.upload = Upload.upload({
+                  url: $scope.url, 
+                  data:data,
+                  file: file, 
+              }).progress(function(evt) {
+                  file.progress = Math.round(evt.loaded * 100 / evt.total);
+              }).success(function(response) {
+                 console.log("response come from file uplaod=",response);
+             });
+          })(files[i]);
+      }
+
+  }
+
 };
+
 }]);
 
 app.directive("fileUpload",function($parse){
@@ -56,10 +50,25 @@ app.directive("fileUpload",function($parse){
                     {
                         fileArray.push(element[0].files[i]);
                     }
-                    console.log("file object in directory=",element[0].files[0]);
+                    //console.log("file object in directory=",element[0].files[0]);
                     $scope.assign(fileArray);
                 });
             });
+        }
+    }
+});
+
+app.directive("progressWidget",function(){
+    return {
+        restrict:'EA',
+        replace:true,
+        templateUrl:"directory/progressWidget.html",
+        link:function($scope,element,attr,controller,transclude){
+            console.log("widget copiler come",attr.percent);
+            attr.$observe("percent",function(newValue){
+                //console.log("widget=",attr.percent);
+                $scope.progress=attr.percent;
+            })
         }
     }
 });
