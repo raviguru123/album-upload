@@ -16,8 +16,11 @@
 		<audio  id="player" src="{{audioSource | trustUrl}}" controls></audio>
 			<input type="button" value="prev" ng-click="prev()"/>
 			<input type="button" value="next" ng-click="next()"/>
+			<input type="button" value="play" ng-click="play()"/>
+			<input type="button" value="pause" ng-click="pause()"/>
+			<input type="button" value="forward" ng-click="forward()"/>
+			<input type="button" value="backward" ng-click="backward()"/>
 		</div>
 		<label>Audio Index={{audioIndex}}</label>
-		<progress-widget percent="obj"></progress-widget>
 	</body>
 	</html>

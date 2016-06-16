@@ -27,23 +27,35 @@ app.controller('audioCtrl', ['$scope', function($scope){
 		else
 			$scope.audioIndex=0;
 
-	$scope.player.src =$scope.audios[$scope.audioIndex];// new MediaSource()
-	$scope.player.play();
-}
-$scope.prev=function(){
-	$scope.player.pause()
-	$scope.player.removeAttribute('src');
-	$scope.player.load();
-	if($scope.audioIndex==0)
-		$scope.audioIndex=$scope.audios.length-1;
-	
-	else
-		$scope.audioIndex+=-1;
-
-		$scope.player.src =$scope.audios[$scope.audioIndex];// new MediaSource()
+		$scope.player.src =$scope.audios[$scope.audioIndex];
 		$scope.player.play();
 	}
+	$scope.prev=function(){
+		$scope.player.pause()
+		$scope.player.removeAttribute('src');
+		$scope.player.load();
+		if($scope.audioIndex==0)
+			$scope.audioIndex=$scope.audios.length-1;
 
+		else
+			$scope.audioIndex+=-1;
+
+		$scope.player.src =$scope.audios[$scope.audioIndex];
+		$scope.player.play();
+	}
+	$scope.pause=function(){
+		$scope.player.pause();
+		console.log("duration=",$scope.player.duration);
+	}
+	$scope.play=function(){
+		$scope.player.play();
+	}
+	$scope.forward=function(){
+		$scope.player.currentTime+=10;
+	}
+	$scope.backward=function(){
+		$scope.player.currentTime-=10;
+	}
 	$scope.player.addEventListener('ended', function(){
 		$scope.next();
 	});

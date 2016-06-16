@@ -14,7 +14,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Uplo
         var array=[];
         if (files && files.length) {
             for (var i = 0; i < files.length; i++) {
-             (function(file) {
+               (function(file) {
                 var data={};
                 data.resource=file;
                 $scope.upload = Upload.upload({
@@ -24,8 +24,8 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Uplo
               }).progress(function(evt) {
                   file.progress = Math.round(evt.loaded * 100 / evt.total);
               }).success(function(response) {
-                 console.log("response come from file uplaod=",response);
-             });
+               console.log("response come from file uplaod=",response);
+           });
           })(files[i]);
       }
 
@@ -50,7 +50,6 @@ app.directive("fileUpload",function($parse){
                     {
                         fileArray.push(element[0].files[i]);
                     }
-                    //console.log("file object in directory=",element[0].files[0]);
                     $scope.assign(fileArray);
                 });
             });
@@ -66,7 +65,6 @@ app.directive("progressWidget",function(){
         link:function($scope,element,attr,controller,transclude){
             console.log("widget copiler come",attr.percent);
             attr.$observe("percent",function(newValue){
-                //console.log("widget=",attr.percent);
                 $scope.progress=attr.percent;
             })
         }
