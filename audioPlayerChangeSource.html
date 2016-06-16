@@ -9,6 +9,18 @@
 		.container{
 			margin:100px;
 		}
+
+		.circle{
+
+			display: inline-block;
+			margin-left: 5px;
+			height: 10px;
+			border-radius: 100%;
+			width:10px;
+			border:solid green 2px;
+			background-color: green;
+
+		}
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -30,8 +42,13 @@
 		<input type="button" value="pause" ng-click="pause()"/>
 		<input type="button" value="forward" ng-click="forward()"/>
 		<input type="button" value="backward" ng-click="backward()"/>
+		<input type="range" value="100" max="100" ng-model="volume" ng-change="changeVolume(volume/100)" />
+		<label ng-bind="volume"></label>
 	</div>
 	<label>Audio Index={{audioIndex}}</label>
-	<div id="playerTest" style="background-color: green;margin-left:200px;height:10px;width:200px;border: 2px solid black" ng-click="forwardClick($event)"></div>
+	<div id="playerTest" style="margin-left:200px;height:10px;width:200px;border: 2px solid black" ng-click="forwardClick($event)">
+		<div ng-style="{width:progress+'%'}" style="width:0%;height: 100%;background-color:red"></div></div>
+	</div>
+	
 </body>
 </html>
