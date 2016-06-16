@@ -56,6 +56,10 @@ app.controller('audioCtrl', ['$scope', function($scope){
 	$scope.backward=function(){
 		$scope.player.currentTime-=10;
 	}
+	$scope.forwardClick=function(evt){
+		var x = evt.pageX - $("#playerTest").offset().left;
+		$scope.player.currentTime=(($scope.player.duration)*x)/200;
+	}
 	$scope.player.addEventListener('ended', function(){
 		$scope.next();
 	});

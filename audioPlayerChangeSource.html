@@ -3,24 +3,35 @@
 <head>
 	<title></title>
 	<script type="text/javascript" src="libjs/angular.min.js"></script>
+	<script type="text/javascript" src="libjs/jquery.min.js"></script>
 	<script type="text/javascript" src="js/audioPlayerChangeSource.js"></script>
 	<style type="text/css">
 		.container{
 			margin:100px;
 		}
 	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			// $("#playerTest").click(function(evt){
+			// 	var x = evt.pageX - $(this).offset().left;
+			// 		console.log("click event position=",x/2);
+			// })
+			$("#player").css("display","none");
+		})
+	</script>
 </head>
 <body ng-app="audio.module" ng-controller="audioCtrl">
 	<h1>Audio player control</h1>
 	<div class="container">
 		<audio  id="player" src="{{audioSource | trustUrl}}" controls></audio>
-			<input type="button" value="prev" ng-click="prev()"/>
-			<input type="button" value="next" ng-click="next()"/>
-			<input type="button" value="play" ng-click="play()"/>
-			<input type="button" value="pause" ng-click="pause()"/>
-			<input type="button" value="forward" ng-click="forward()"/>
-			<input type="button" value="backward" ng-click="backward()"/>
-		</div>
-		<label>Audio Index={{audioIndex}}</label>
-	</body>
-	</html>
+		<input type="button" value="prev" ng-click="prev()"/>
+		<input type="button" value="next" ng-click="next()"/>
+		<input type="button" value="play" ng-click="play()"/>
+		<input type="button" value="pause" ng-click="pause()"/>
+		<input type="button" value="forward" ng-click="forward()"/>
+		<input type="button" value="backward" ng-click="backward()"/>
+	</div>
+	<label>Audio Index={{audioIndex}}</label>
+	<div id="playerTest" style="background-color: green;margin-left:200px;height:10px;width:200px;border: 2px solid black" ng-click="forwardClick($event)"></div>
+</body>
+</html>
