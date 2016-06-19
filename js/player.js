@@ -1,6 +1,4 @@
-var app=angular.module("player.module",[ "ngSanitize",
-	"com.2fdevs.videogular",
-	"com.2fdevs.videogular.plugins.controls"]);
+var app=angular.module("player.module",[]);
 app.controller('HomeCtrl', ["$sce","$scope", "$window", "sharedProperties","getMyWorkFactory", 
 	function($sce, $scope, $window, sharedProperties,getMyWorkFactory) {
 		controller=this;
@@ -15,30 +13,8 @@ app.controller('HomeCtrl', ["$sce","$scope", "$window", "sharedProperties","getM
 		}
 		$scope.currentTime = 0;
 		$scope.timeLeft=200000;
-		this.changeSource = function () {
-			this.config.sources = [ {
-				src: $sce.trustAsResourceUrl("https://gopartiesnew.s3-ap-southeast-1.amazonaws.com/9583cf70-3e05-43f7-a18d-5ee666e100d4.mp3"),
-				type: "audio/mp3"
-			}];
-			this.config.tracks = undefined;
-			this.config.loop = false;
-			this.config.preload = true;
-			this.config.autoPlay=true;
-		};
-		this.config = {
-			sources: [  {
-				src: $sce.trustAsResourceUrl("https://ia802302.us.archive.org/27/items/Pbtestfilemp4videotestmp4/video_test_512kb.mp4"),
-				type: "video/mp4"
-			},
-			{
-				src: $sce.trustAsResourceUrl("https://gopartiesnew.s3-ap-southeast-1.amazonaws.com/3c66400c-bcd3-4663-bba7-8dc8bec08e5d.mp3"),
-				type: "audio/mp3"
-			}
-			],
-			theme: {
-				url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
-			}
-		};
+		
+		
 		$scope.mediaObj=[];
 		$scope.init=function(){
 			getMyWorkFactory.getMyWork().then(function(response){
@@ -92,9 +68,9 @@ app.directive("mediaDirectory",function(){
 		},
 		link:function($scope,element,attr,controller,transclude){
 			var category=$scope.mediaObj.worktype;
-			$scope.serverLink=$scope.mediaObj.fileurl;
+			$scope.audioSource=$scope.mediaObj.fileurl;
 			$scope.thumburl=$scope.mediaObj.thumburl;
-			console.log("$scope.serverLink",$scope.serverLink);
+			console.log("$scope.serverLink",$scope.mediaObj);
 			if(category=="audio"){
 				
 				$scope.myTemplate="directory/mp3.html";

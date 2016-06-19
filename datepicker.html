@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title></title>
+
+	<link rel="stylesheet" type="text/css" href="bower_components/adm-dtp/dist/ADM-dateTimePicker.min.css">
+	<script type="text/javascript" src="libjs/angular.min.js"></script>
+	<script type="text/javascript" src="bower_components/adm-dtp/dist/ADM-dateTimePicker.min.js"></script>
+	<script type="text/javascript" src="js/datepicker.js"></script>
+</head>
+<body style="margin:200px" ng-controller="dateCtrl">
+<adm-dtp ng-model='date' options="{placeholder:'Select Date'}">
+	  <input type='text' ng-model='date' dtp-input placeholder="Select Date" />
+
+</adm-dtp>
+</body>
+</html>
+<!-- options="{placeholder:'Select Date'}" -->
